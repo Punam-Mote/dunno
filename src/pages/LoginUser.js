@@ -1,34 +1,22 @@
-import React, { Component } from 'react'
-import axios from '../axios';
+import { Component } from "react";
+import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
 
-export default class Login extends Component {
+export default class LoginUser extends Component{
     state = {
         email: '',
         password: '',
-        userType: 'Restaurant',
     };
     login = (e) => {
         e.preventDefault()
         const data = {
             email: this.state.email,
             password: this.state.password,
-            userType: this.state.userType,
+
         };
-        if(this.state.userType==="User"){
-            axios.post('/loginUser', data).then((response) => {
-               if(response.data.success){
-                   alert("User Logged in vayo")
-               }else{
-                   alert(response.data.message)
-               }
-            });
-        }else{
-            
-            axios.post('/loginSupplier', data).then((response) => {
-                console.log(response);
-            });
-        }
+        axios.post('http://localhost:90/loginUser', data).then((response) => {
+            console.log(response);
+        });
     };
     render() {
         return (
@@ -44,21 +32,9 @@ export default class Login extends Component {
                     <Form.Control type="password" placeholder="Password"
                         onChange={(e) => { this.setState({ password: e.target.value }) }} />
                 </Form.Group>
-
-                <Form.Group>
-					<Form.Label>User Type</Form.Label>
-					<Form.Control as="select"
-						defaultValue="Restaurant"
-						onChange={(event) =>
-							this.setState({ userType: event.target.value })
-
-						}>
-						<option value="Restaurant">Restaurant</option>
-						<option value="Vendor">Vendor</option>
-                        <option value="User">User</option>
-					</Form.Control>
-				</Form.Group>
-
+                <Form.Group controlId="formBasicCheckbox">
+                    <Form.Check type="checkbox" label="Check me out" />
+                </Form.Group>
                 <Button className="btn-lg btn-block" variant="success" type="submit">
                     Login
   </Button>
