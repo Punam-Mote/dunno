@@ -18,7 +18,7 @@ export default class Login extends Component {
         if(this.state.userType==="User"){
             axios.post('/loginUser', data).then((response) => {
                if(response.data.success){
-                   alert("User Logged in vayo")
+                   //alert("User Logged in vayo")
                }else{
                    alert(response.data.message)
                }
